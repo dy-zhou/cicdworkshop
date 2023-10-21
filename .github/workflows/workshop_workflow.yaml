@@ -16,8 +16,8 @@ jobs:
         with:
           scan-type: 'fs'
           ignore-unfixed: true
-          format: 'sarif'
-          output: 'trivy-results.sarif'
+          format: 'table'
+          output: 'trivy-results.txt'
           severity: 'HIGH,CRITICAL'
       
       - name: Upload Trivy scan results to slack
@@ -30,7 +30,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
           VAULT_TOKEN: ${{ secrets.WEB_TOKEN }}
         with: 
-          sarif_file: 'trivy-results.sarif'
+          sarif_file: 'trivy-results.txt'
 
 
 
