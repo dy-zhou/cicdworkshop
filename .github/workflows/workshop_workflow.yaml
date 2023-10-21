@@ -29,8 +29,15 @@ jobs:
           SLACK_MESSAGE: Failed trivy scan, see uploaded report
           SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
           VAULT_TOKEN: ${{ secrets.WEB_TOKEN }}
-        with: 
-          txt_file: 'trivy-results.txt'
+        with:
+            slack_token: ${{ secrets.WEB_TOKEN }}
+            channel_id: ${{ secrets.CHANNELID}}
+            content: 'trivy-results.txt'
+            file_type: 'text'
+            file_name: 'trivy-results.txt'
+            title: 'trivyresults'
+            initial_comment: 'post'
+
 
 
 
