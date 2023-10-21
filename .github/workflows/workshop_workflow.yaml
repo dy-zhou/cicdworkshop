@@ -21,7 +21,14 @@ jobs:
           severity: 'HIGH,CRITICAL'
       
       - name: Upload Trivy scan results to slack
-        uses: MeilCli/slack-upload-file@v3
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
+          SLACK_USERNAME: DANYING
+          SLACK_CHANNEL: dipsa57-cicd
+          SLACK_MESSAGE: 'failed' 
+      - name: Send as text  
+        uses:  MeilCli/slack-upload-file@v3  
         with:
             slack_token: ${{ secrets.WEB_TOKEN }}
             channel_id: ${{ secrets.CHANNELID}}
