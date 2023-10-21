@@ -30,7 +30,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
           VAULT_TOKEN: ${{ secrets.WEB_TOKEN }}
         with: 
-          sarif_file: 'trivy-results.txt'
+          txt_file: 'trivy-results.txt'
 
 
 
