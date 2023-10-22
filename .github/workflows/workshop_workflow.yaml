@@ -36,12 +36,8 @@ jobs:
         with:
           slack_token: ${{ secrets.WEB_TOKEN }}
           channel_id: ${{ secrets.CHANNELID}}
-          file_path: '/home/runner/work/cicdworkshop/cicdworkshop'
+          file_path: './trivy-results.txt'
           initial_comment: 'post by slack-upload-file'
-
-
-
-
 
   
 
