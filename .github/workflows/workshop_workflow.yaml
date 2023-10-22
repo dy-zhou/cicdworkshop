@@ -20,13 +20,13 @@ jobs:
           output: 'trivy-results.txt'
           severity: 'HIGH,CRITICAL'
       
-      - name: Upload Trivy scan results to slack
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
-          SLACK_USERNAME: DANYING
-          SLACK_CHANNEL: dipsa57-cicd
-          SLACK_MESSAGE: failed
+     # - name: Upload Trivy scan results to slack
+        #uses: rtCamp/action-slack-notify@v2
+        #env:
+          #SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
+          #SLACK_USERNAME: DANYING
+          #SLACK_CHANNEL: dipsa57-cicd
+          #SLACK_MESSAGE: failed
       
       #- name: find the path
       #  run: 
