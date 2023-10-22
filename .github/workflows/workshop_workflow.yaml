@@ -28,15 +28,15 @@ jobs:
           SLACK_CHANNEL: dipsa57-cicd
           SLACK_MESSAGE: 'failed' 
       
-      - name: find the path
-        uses: ls -l
+      #- name: find the path
+      #  run: 
 
       - name: Send as text  
         uses:  MeilCli/slack-upload-file@v3  
         with:
           slack_token: ${{ secrets.WEB_TOKEN }}
           channel_id: ${{ secrets.CHANNELID}}
-          file_path: 'trivy-results.txt'
+          file_path: '*/trivy-results.txt'
           initial_comment: 'post by slack-upload-file'
 
 
