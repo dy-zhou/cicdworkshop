@@ -54,6 +54,12 @@ jobs:
         with:
           push: true
           tags: dyzhou228/workshop:latest
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3.1.1
+        with:
+          cosign-release: main
+      - name: Check install
+        run: cosign version
           
 
 
