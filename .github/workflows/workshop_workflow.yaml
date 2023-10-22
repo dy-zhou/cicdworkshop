@@ -53,7 +53,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: danying/newworld:latest
+          tags: dyzhou228/workshop:latest
           
 
 
