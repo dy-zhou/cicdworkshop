@@ -26,7 +26,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
           SLACK_USERNAME: DANYING
           SLACK_CHANNEL: dipsa57-cicd
-          SLACK_MESSAGE: 'failed' 
+          SLACK_MESSAGE: failed
       
       #- name: find the path
       #  run: 
