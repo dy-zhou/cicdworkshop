@@ -28,8 +28,7 @@ jobs:
           #SLACK_CHANNEL: dipsa57-cicd
           #SLACK_MESSAGE: failed
       
-      - name: find the path
-        run: pwd
+    
 
       - name: Send as text  
         uses:  MeilCli/slack-upload-file@v3  
@@ -38,6 +37,25 @@ jobs:
           channel_id: ${{ secrets.CHANNELID}}
           file_path: './trivy-results.txt'
           initial_comment: 'post by slack-upload-file'
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: danying/newworld:latest
+          
+
 
   
 
