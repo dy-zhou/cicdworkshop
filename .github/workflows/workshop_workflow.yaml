@@ -41,10 +41,10 @@ jobs:
           SLACK_CHANNEL: dipsa57-cicd
           SLACK_MESSAGE: |
             *NAME:*ZHOU DANYING
-            *Matriculation:*A0286056X
-            *Email:*e1221868@u.nus.edu
-            *Git:*https://github.com/${{ github.action_repository}}/cicdworkshop/tree/v1.0
-            *Image:*https://hub.docker.com/repository/docker/dyzhou228/workshop/general
+            *MATRICULATION:*A0286056X
+            *EMAIL:*e1221868@u.nus.edu
+            *GIT:*https://github.com/${{ github.action_repository}}/cicdworkshop/tree/v1.0
+            *IMAGE:*https://hub.docker.com/repository/docker/dyzhou228/workshop/general
             
       
 
@@ -83,7 +83,7 @@ jobs:
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.1.1
         with:
-          cosign-release: v2.2.0cosi
+          cosign-release: v2.2.0
       - name: Check install
         run: cosign version
       - name: Sign image with a key
