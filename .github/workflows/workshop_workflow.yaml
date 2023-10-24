@@ -3,10 +3,12 @@ on:
     push:
         branches:
             - v[0-9]+.[0-9]+
+        
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    if: (!contains(github.event.head_commit.message,'#NORUN'))
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -18,7 +20,7 @@ jobs:
           ignore-unfixed: true
           format: 'table'
           output: 'trivy-results.txt'
-          severity: 'HIGH,CRITICAL'
+          severity: ${{ secrets.RESULTS}}
           exit-code: '1'
 
       
@@ -30,17 +32,24 @@ jobs:
           SLACK_USERNAME: DANYING
           SLACK_CHANNEL: dipsa57-cicd
           SLACK_MESSAGE: failed
-        
+      - name: Upload Trivy scan results to slack
+        uses: rtCamp/action-slack-notify@v2
+        if: ${{ success()}}
+        env:
+          SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
+          SLACK_USERNAME: DANYING
+          SLACK_CHANNEL: dipsa57-cicd
+          SLACK_MESSAGE: success
       
 
-      - name: Send as text  
-        uses:  MeilCli/slack-upload-file@v3  
-        if: ${{ failure()}}
-        with:
-          slack_token: ${{ secrets.WEB_TOKEN }}
-          channel_id: ${{ secrets.CHANNELID}}
-          file_path: './trivy-results.txt'
-          initial_comment: 'post by slack-upload-file'
+      #- name: Send as text  
+        #uses:  MeilCli/slack-upload-file@v3  
+        #if: ${{ failure()}}
+        #with:
+          #slack_token: ${{ secrets.WEB_TOKEN }}
+          #channel_id: ${{ secrets.CHANNELID}}
+          #file_path: './trivy-results.txt'
+          #initial_comment: 'post by slack-upload-file'
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -84,7 +93,7 @@ jobs:
           
 
 
-          
+
   
 
 
