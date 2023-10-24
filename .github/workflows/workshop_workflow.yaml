@@ -42,11 +42,11 @@ jobs:
           SLACK_USERNAME: DANYING
           SLACK_CHANNEL: dipsa57-cicd
           SLACK_MESSAGE: |
-            *NAME:*ZHOU DANYING
-            *MATRICULATION:*A0286056X
-            *EMAIL:*e1221868@u.nus.edu
-            *GIT:*https://github.com/${{ github.action_repository}}/cicdworkshop/tree/v1.0
-            *IMAGE:*https://hub.docker.com/repository/docker/dyzhou228/workshop/general
+            **NAME:**ZHOU DANYING
+            **MATRICULATION:**A0286056X
+            **EMAIL:**e1221868@u.nus.edu
+            **GIT:**https://github.com/${{ github.action_repository}}/cicdworkshop/tree/v1.0
+            **IMAGE:**https://hub.docker.com/repository/docker/dyzhou228/workshop/general
             
       
 
