@@ -31,7 +31,9 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
           SLACK_USERNAME: DANYING
           SLACK_CHANNEL: dipsa57-cicd
-          SLACK_MESSAGE: failed
+          SLACK_TITLE: Scan failed -Zhou Danying
+          SLACK_MESSAGE: Failed trivy scan, see uploaded report
+            
       - name: Upload Trivy scan results to slack
         uses: rtCamp/action-slack-notify@v2
         if: ${{ success()}}
