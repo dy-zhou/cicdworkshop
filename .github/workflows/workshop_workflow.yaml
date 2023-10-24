@@ -19,19 +19,23 @@ jobs:
           format: 'table'
           output: 'trivy-results.txt'
           severity: 'HIGH,CRITICAL'
+          exit-code: '1'
+
       
-     # - name: Upload Trivy scan results to slack
-        #uses: rtCamp/action-slack-notify@v2
-        #env:
-          #SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
-          #SLACK_USERNAME: DANYING
-          #SLACK_CHANNEL: dipsa57-cicd
-          #SLACK_MESSAGE: failed
+      - name: Upload Trivy scan results to slack
+        uses: rtCamp/action-slack-notify@v2
+        if: ${{ failure()}}
+        env:
+          SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
+          SLACK_USERNAME: DANYING
+          SLACK_CHANNEL: dipsa57-cicd
+          SLACK_MESSAGE: failed
+        
       
-    
 
       - name: Send as text  
         uses:  MeilCli/slack-upload-file@v3  
+        if: ${{ failure()}}
         with:
           slack_token: ${{ secrets.WEB_TOKEN }}
           channel_id: ${{ secrets.CHANNELID}}
@@ -48,18 +52,34 @@ jobs:
         with:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
+      - name: meta
+        id: docker_meta
+        uses: docker/metadata-action@v4.4.0
+        with:
+          images: dyzhou228/workshop
+          tags: type=sha,format=long
 
       - name: Build and push
         uses: docker/build-push-action@v5
+        id: build-and-push
         with:
           push: true
-          tags: dyzhou228/workshop:latest
+          tags: ${{ steps.docker_meta.outputs.tags }}
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.1.1
         with:
-          cosign-release: main
+          cosign-release: v2.2.0cosi
       - name: Check install
         run: cosign version
+      - name: Sign image with a key
+        run: |
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${TAGS}@${DIGEST}"
+        env:
+          TAGS: ${{  steps.docker_meta.outputs.tags }}
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+          DIGEST: ${{ steps.build-and-push.outputs.digest }}
+    
           
 
 
