@@ -39,7 +39,13 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.WEBHOOK_TEST }}
           SLACK_USERNAME: DANYING
           SLACK_CHANNEL: dipsa57-cicd
-          SLACK_MESSAGE: success
+          SLACK_MESSAGE: |
+            *NAME:*ZHOU DANYING
+            *Matriculation:*A0286056X
+            *Email:*e1221868@u.nus.edu
+            *Git:*https://github.com/${{ github.action_repository}}/cicdworkshop/tree/v1.0
+            *Image:*https://hub.docker.com/repository/docker/dyzhou228/workshop/general
+            
       
 
       #- name: Send as text  
